@@ -38,10 +38,11 @@ const user = {
 			return new Promise((resolve, reject) => {
 				login(email, user.password)
 					.then(res => {
-						const { access_token } = res.data.data
+						const { access_token } = res.data
+						console.log(access_token, ' the access token')
 						setToken(access_token)
 						commit('SET_TOKEN', access_token)
-						resolve(res.data.data)
+						resolve(res.data)
 					})
 					.catch(err => {
 						console.log(err)

@@ -1,4 +1,4 @@
-<template>
+<template id="nav">
   <v-container>
     <v-layout row>
       <v-flex xx12 sm6 offset-sm3>

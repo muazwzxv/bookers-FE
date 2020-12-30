@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Signup from '../components/signup/Signup.vue'
-import Login from '../components/login/Login.vue'
+import Signup from '../views/login/Signup.vue'
+import Login from '../views/login/Login.vue'
 import Layout from '../components/Layout.vue'
-import Profile from '../components/user/Profile.vue'
-import Listing from '../components/listing/Listings.vue'
+import Profile from '../views/user/Profile.vue'
+import Listing from '../views/listing/Listings.vue'
 
 Vue.use(VueRouter)
 

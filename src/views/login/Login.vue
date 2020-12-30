@@ -33,7 +33,7 @@
 
               <v-layout row>
                 <v-flex xs12>
-                  <v-btn type="submit" @click="onLogin">Sign up</v-btn>
+                  <v-btn type="submit" @click="onLogin">Login</v-btn>
                 </v-flex>
               </v-layout>
             </form>
@@ -65,10 +65,8 @@ export default {
       };
 
       try {
-        const acc = await this.$store.dispatch("login", form);
-        console.log(acc, "made it bitch");
-
-        this.$router.push("/home");
+        await this.$store.dispatch("login", form);
+        this.$router.push("/listings");
       } catch (err) {
         console.log(err, "nawww fuck off");
       }

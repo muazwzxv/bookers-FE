@@ -1,6 +1,6 @@
 import request from '../utils/request'
 
-export function postLisings(data) {
+export function postListings(data) {
 	return request({
 		url: '/listings',
 		method: 'post',

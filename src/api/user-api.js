@@ -18,3 +18,10 @@ export function register(data) {
 		data,
 	})
 }
+
+export function me() {
+	return request({
+		url: '/me',
+		method: 'get',
+	})
+}

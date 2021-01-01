@@ -36,6 +36,8 @@
                   <v-btn type="submit" @click="onLogin">Login</v-btn>
                 </v-flex>
               </v-layout>
+
+              <v-alert v-if="status == true">Something went wrong</v-alert>
             </form>
           </v-card-text>
         </v-card>
@@ -50,6 +52,8 @@ export default {
 
   data() {
     return {
+      isLoggedIn: false,
+      error: true,
       email: "",
       password: "",
     };
@@ -64,12 +68,16 @@ export default {
         password: this.password,
       };
 
-      try {
-        await this.$store.dispatch("login", form);
-        this.$router.push("/listings");
-      } catch (err) {
-        console.log(err, "nawww fuck off");
-      }
+      await this.$store
+        .dispatch("login", form)
+        .then((res) => {
+          console.log(res, "the data");
+          this.$router.push("/listings");
+        })
+        .catch((err) => {
+          console.log(err);
+          this.error = true;
+        });
     },
   },
 };

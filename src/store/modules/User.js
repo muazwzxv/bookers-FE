@@ -10,7 +10,7 @@ const user = {
 		role: ''
 	},
 
-	mutation: {
+	mutations: {
 		SET_USER_ID: (state, id) => {
 			state.user_id = id
 		},
@@ -39,9 +39,14 @@ const user = {
 				login(email, user.password)
 					.then(res => {
 						const { access_token } = res.data
-						console.log(access_token, ' the access token')
+						const { id, name, email, role } = res.data.user
+						removeToken()
 						setToken(access_token)
+						commit('SET_USER_ID', id)
 						commit('SET_TOKEN', access_token)
+						commit('SET_NAME', name)
+						commit('SET_EMAIL', email)
+						commit('SET_ROLE', role)
 						resolve(res.data)
 					})
 					.catch(err => {

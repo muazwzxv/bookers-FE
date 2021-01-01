@@ -51,7 +51,7 @@
 import { getAll } from "../../api/Listings-api";
 export default {
   //
-  name: "listings",
+  name: "Listings",
 
   data() {
     return {

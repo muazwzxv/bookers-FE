@@ -4,7 +4,7 @@ import Signup from '../views/login/Signup.vue'
 import Login from '../views/login/Login.vue'
 import Layout from '../components/Layout.vue'
 import Profile from '../views/user/Profile.vue'
-import Listing from '../views/listing/Listings.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -32,7 +32,7 @@ const routes = [
 			{
 				path: 'listings',
 				name: 'listings',
-				component: Listing
+				component: Home
 			},
 		]
 	},

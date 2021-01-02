@@ -25,3 +25,11 @@ export function me() {
 		method: 'get',
 	})
 }
+
+export function update(id, data) {
+	return request({
+		url: `/user/${id}`,
+		method: 'patch',
+		data,
+	})
+}

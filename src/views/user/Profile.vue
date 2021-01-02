@@ -1,33 +1,32 @@
 <template>
-  <v-container fluid>
-    <v-layout column>
-      <v-card>
-        <v-card-text>
-          <v-flex class="mb-4"> </v-flex>
-          <v-text-field v-model="form.Name" label="FirstName"></v-text-field>
+  <v-main>
+    <v-container fluid>
+      <v-layout column>
+        <v-card>
+          <v-card-text>
+            <v-flex class="mb-4"> </v-flex>
+            <v-text-field v-model="form.Name" label="FirstName"></v-text-field>
 
-          <v-text-field
-            v-model="form.Email"
-            label="Email Address"
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" :loading="loading" @click.native="update">
-            <v-icon left dark>check</v-icon>
-            Save Changes
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-layout>
-    <avatar-picker
-      v-model="showAvatarPicker"
-      :current-avatar="form.avatar"
-      @selected="selectAvatar"
-    ></avatar-picker>
-  </v-container>
+            <v-text-field
+              v-model="form.Email"
+              label="Email Address"
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="primary" :loading="loading" @click="updateUser">
+              <v-icon left dark>check</v-icon>
+              Save Changes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-layout>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+// import { update } from "../../api/user-api";
 // import AvatarPicker from "~/components/AvatarPicker";
 export default {
   pageTitle: "My Profile",
@@ -40,6 +39,34 @@ export default {
       },
     };
   },
-  methods: {},
+  computed: {
+    ...mapGetters(["name", "email"]),
+  },
+  created() {
+    this.fetchState();
+  },
+  methods: {
+    fetchState() {
+      this.form.Name = this.name;
+      this.form.Email = this.email;
+    },
+
+    async updateUser() {
+      const toUpdate = {
+        name: this.form.Name,
+        email: this.form.Email,
+      };
+
+      console.log(toUpdate);
+
+      // await update(this.id, toUpdate)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    },
+  },
 };
 </script>

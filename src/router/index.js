@@ -5,13 +5,14 @@ import Login from '../views/login/Login.vue'
 import Layout from '../components/Layout.vue'
 import Profile from '../views/user/Profile.vue'
 import Home from '../views/Home.vue'
+import Listings from '../views/listing/Listings.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
 	{
 		path: '/',
-		name: 'Layout',
+		name: 'Auth',
 		component: Layout,
 		children: [
 			{
@@ -24,6 +25,13 @@ const routes = [
 				name: 'signup',
 				component: Signup
 			},
+		],
+	},
+	{
+		path: '/',
+		name: 'Home',
+		component: Home,
+		children: [
 			{
 				path: 'profile',
 				name: 'profile',
@@ -32,10 +40,10 @@ const routes = [
 			{
 				path: 'listings',
 				name: 'listings',
-				component: Home
+				component: Listings
 			},
 		]
-	},
+	}
 ]
 
 const router = new VueRouter({

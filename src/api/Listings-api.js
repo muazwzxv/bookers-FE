@@ -21,3 +21,10 @@ export function getAll() {
 		method: 'get'
 	})
 }
+
+export function getAllUsersListing(id) {
+	return request({
+		url: `/listings/${id}/all`,
+		method: 'get'
+	})
+}

@@ -33,3 +33,10 @@ export function update(id, data) {
 		data,
 	})
 }
+
+export function getAll() {
+	return request({
+		url: '/users',
+		method: 'get',
+	})
+}

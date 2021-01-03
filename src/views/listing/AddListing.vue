@@ -116,6 +116,7 @@ export default {
       await postListings(listing)
         .then((res) => {
           console.log(res);
+          this.dialog = false;
         })
         .catch((err) => {
           console.log(err, "the fucking error");

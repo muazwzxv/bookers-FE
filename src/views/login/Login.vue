@@ -1,6 +1,6 @@
-<template id="nav">
+<template id="nav" >
   <v-container>
-    <v-layout row>
+    <v-layout row align-center>
       <v-flex xx12 sm6 offset-sm3>
         <v-card>
           <v-card-text>
@@ -82,3 +82,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>

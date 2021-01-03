@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import { update } from "../../api/user-api";
+import { update } from "../../api/user-api";
 // import AvatarPicker from "~/components/AvatarPicker";
 export default {
   pageTitle: "My Profile",
@@ -59,13 +59,13 @@ export default {
 
       console.log(toUpdate);
 
-      // await update(this.id, toUpdate)
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      await update(this.id, toUpdate)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

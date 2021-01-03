@@ -6,6 +6,7 @@ import Layout from '../components/Layout.vue'
 import Profile from '../views/user/Profile.vue'
 import Home from '../views/Home.vue'
 import Listings from '../views/listing/Listings.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
 				component: Listings
 			},
 		]
+	},
+	{
+		path: '/admin',
+		name: 'Admin',
+		component: Admin,
 	}
 ]
 

@@ -114,7 +114,7 @@ export default {
         const acc = await this.$store.dispatch("register", form);
         console.log(acc, "made it bitch");
 
-        this.$router.push("/home");
+        this.$router.push("/listings");
       } catch (err) {
         console.log(err, "nawww fuck off");
       }

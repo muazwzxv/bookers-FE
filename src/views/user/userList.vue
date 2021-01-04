@@ -73,7 +73,7 @@
                 <v-btn color="blue darken-1" text @click="closeDelete"
                   >Cancel</v-btn
                 >
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm()"
                   >OK</v-btn
                 >
                 <v-spacer></v-spacer>
@@ -83,7 +83,6 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
       </template>
     </v-data-table>
@@ -91,7 +90,7 @@
 </template>
 
 <script>
-import { getAll } from "../../api/user-api";
+import { deleteById, getAll } from "../../api/user-api";
 export default {
   data: () => ({
     dialog: false,
@@ -110,21 +109,10 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
     users: [],
+    toDelete: {},
     editedIndex: -1,
-    editedItem: {
-      name: "",
-      email: "",
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+    editedItem: {},
+    defaultItem: {},
   }),
 
   computed: {
@@ -158,20 +146,18 @@ export default {
         });
     },
 
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      this.toDelete = item;
       this.dialogDelete = true;
+      console.log(this.toDelete, "todelete bitch");
     },
 
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+    async deleteItemConfirm(id) {
+      await deleteById(id)
+        .then(() => this.initialize)
+        .catch((err) => {
+          console.log(err);
+        });
       this.closeDelete();
     },
 
@@ -185,6 +171,7 @@ export default {
 
     closeDelete() {
       this.dialogDelete = false;
+      this.toDelete = {};
       this.$nextTick(() => {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;

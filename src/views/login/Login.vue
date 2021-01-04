@@ -71,8 +71,12 @@ export default {
       await this.$store
         .dispatch("login", form)
         .then((res) => {
-          console.log(res, "the data");
-          this.$router.push("/listings");
+          console.log(res.user.role);
+          if (res.user.role === "user") {
+            this.$router.push("/listings");
+          } else {
+            this.$router.push("/admin");
+          }
         })
         .catch((err) => {
           console.log(err);

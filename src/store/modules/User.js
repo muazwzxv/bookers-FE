@@ -60,7 +60,7 @@ const user = {
 			return new Promise((resolve, reject) => {
 				register(user)
 					.then(res => {
-						const { access_token } = res.data.data
+						const { access_token } = res.data
 						setToken(access_token)
 						resolve(res)
 					})

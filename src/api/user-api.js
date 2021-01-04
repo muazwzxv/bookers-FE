@@ -40,3 +40,10 @@ export function getAll() {
 		method: 'get',
 	})
 }
+
+export function deleteById(id) {
+	return request({
+		url: `/users/${id}`,
+		method: 'delete'
+	})
+}

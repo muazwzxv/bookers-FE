@@ -26,5 +26,8 @@ export default {
   //
   components: { UserList },
   name: "Admin",
+  created() {
+    this.$store.dispatch("getInfo");
+  },
 };
 </script>

@@ -131,6 +131,7 @@ export default {
   },
 
   created() {
+    // this.$store.dispatch("getInfo");
     this.initialize();
   },
 
@@ -152,9 +153,9 @@ export default {
       console.log(this.toDelete, "todelete bitch");
     },
 
-    async deleteItemConfirm(id) {
-      await deleteById(id)
-        .then(() => this.initialize)
+    async deleteItemConfirm() {
+      await deleteById(this.toDelete.id)
+        .then(() => this.initialize())
         .catch((err) => {
           console.log(err);
         });

@@ -1,4 +1,4 @@
-import { login, register } from '../../api/user-api'
+import { login, me, register } from '../../api/user-api'
 import { getToken, setToken, removeToken } from '../../utils/auth'
 
 const user = {
@@ -67,6 +67,21 @@ const user = {
 					.catch(err => {
 						reject(err)
 					})
+			})
+		},
+
+		getInfo({ commit }) {
+			return new Promise((resolve, reject) => {
+				me().then(res => {
+					const { id, name, email, role } = res.data.user
+					commit('SET_USER_ID', id)
+					commit('SET_NAME', name)
+					commit('SET_EMAIL', email)
+					commit('SET_ROLE', role)
+					resolve(res.data.user)
+				}).catch(err => {
+					reject(err)
+				})
 			})
 		},
 

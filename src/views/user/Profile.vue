@@ -47,6 +47,7 @@ export default {
     ...mapGetters(["name", "email"]),
   },
   created() {
+    this.$store.dispatch("getInfo");
     this.fetchState();
   },
   methods: {

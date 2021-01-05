@@ -122,7 +122,7 @@ export default {
         });
 
       this.dialog = false;
-      // this.$emit()
+      location.reload();
     },
   },
 };

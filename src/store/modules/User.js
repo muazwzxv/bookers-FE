@@ -2,6 +2,7 @@ import { login, me, register } from '../../api/user-api'
 import { getToken, setToken, removeToken } from '../../utils/auth'
 
 const user = {
+
 	state: {
 		user_id: '',
 		token: getToken(),
@@ -11,6 +12,10 @@ const user = {
 	},
 
 	mutations: {
+		ADD_CAPABILITIES: (state, data) => {
+			state.capabilities.push(data)
+		},
+
 		SET_USER_ID: (state, id) => {
 			state.user_id = id
 		},

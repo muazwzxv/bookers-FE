@@ -30,7 +30,6 @@
 import { mapGetters } from "vuex";
 import { update } from "../../api/user-api";
 import UserListings from "../listing/userListings";
-// import AvatarPicker from "~/components/AvatarPicker";
 export default {
   components: { UserListings },
   pageTitle: "My Profile",

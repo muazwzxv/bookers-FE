@@ -71,9 +71,13 @@ export default {
 
   methods: {
     async getListitngs() {
-      const listings = await getAllUsersListing(this.user_id);
-      this.listings = listings.data.listing;
-      console.log(listings, " the fcuking terdataaaa");
+      await getAllUsersListing(this.user_id)
+        .then((res) => {
+          this.listings.push(...res.data.listings);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

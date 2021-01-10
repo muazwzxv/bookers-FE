@@ -9,11 +9,21 @@
 
       <v-fab-transition>
         <AddListings v-if="$route.name === 'listings'" />
+        <!-- Add comment button here -->
       </v-fab-transition>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
         <v-list-item-group active-class="deep-purple--text text--accent-4">
+          <router-link to="/profile">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Account</v-list-item-title>
+            </v-list-item>
+          </router-link>
+
           <router-link to="/listings">
             <v-list-item>
               <v-list-item-icon>
@@ -23,12 +33,12 @@
             </v-list-item>
           </router-link>
 
-          <router-link to="/profile">
+          <router-link to="/forum">
             <v-list-item>
               <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
+                <v-icon>{{ icons.mdiPencil }}</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Account</v-list-item-title>
+              <v-list-item-title>Forum</v-list-item-title>
             </v-list-item>
           </router-link>
         </v-list-item-group>
@@ -41,6 +51,7 @@
 
 <script>
 import AddListings from "./listing/AddListing";
+import { mdiPencil } from "@mdi/js";
 export default {
   components: { AddListings },
   //
@@ -51,6 +62,9 @@ export default {
       reveal: false,
       drawer: false,
       dialog: false,
+      icons: {
+        mdiPencil,
+      },
     };
   },
 

@@ -7,6 +7,7 @@ import Profile from '../views/user/Profile.vue'
 import Home from '../views/Home.vue'
 import Listings from '../views/listing/Listings.vue'
 import Admin from '../views/Admin.vue'
+import Forum from '../views/forum/Forum.vue'
 
 Vue.use(VueRouter)
 
@@ -42,6 +43,11 @@ const routes = [
 				path: 'listings',
 				name: 'listings',
 				component: Listings
+			},
+			{
+				path: 'forum',
+				name: 'forum',
+				component: Forum
 			},
 		]
 	},

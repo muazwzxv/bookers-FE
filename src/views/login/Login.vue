@@ -1,4 +1,4 @@
-<template id="nav" >
+<template id="nav">
   <v-container>
     <v-layout row align-center>
       <v-flex xx12 sm6 offset-sm3>
@@ -37,7 +37,7 @@
                 </v-flex>
               </v-layout>
 
-              <v-alert v-if="status == true">Something went wrong</v-alert>
+              <v-alert v-if="error == true">Something went wrong</v-alert>
             </form>
           </v-card-text>
         </v-card>
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      error: true,
+      error: false,
       email: "",
       password: "",
     };

@@ -47,7 +47,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getInfo");
-    this.fetchState();
+    this.fetchState()
   },
   methods: {
     fetchState() {
@@ -70,6 +70,8 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+
+      location.reload();
     },
   },
 };

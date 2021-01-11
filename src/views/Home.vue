@@ -43,6 +43,13 @@
               <v-list-item-title>Forum</v-list-item-title>
             </v-list-item>
           </router-link>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Forum</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -75,6 +82,10 @@ export default {
     this.$store.dispatch("getInfo");
   },
 
-  methods: {},
+  methods: {
+    logout() {
+      console.log("log out la fucker");
+    },
+  },
 };
 </script>

@@ -23,30 +23,31 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
+              <v-col cols="12">
                 <v-text-field
-                  label="Description"
-                  v-model="title"
+                  label="Comments"
+                  v-model="comment"
                   required
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="6">
+              <!-- <v-col cols="12" sm="6" v-for="topic in topics" :key="topic.id">
                 <v-select
-                  v-model="delivery"
-                  :items="['cod', 'delivery']"
+                  v-model="selected"
+                  :value="topic.name"
                   label="Delivery type"
                   required
                 ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
+              </v-col> -->
+
+              <!-- <v-col cols="12" sm="6">
                 <v-select
                   v-model="status"
                   :items="['available', 'sold']"
                   label="Status"
                   required
                 ></v-select>
-              </v-col>
+              </v-col> -->
             </v-row>
           </v-container>
           <small>*indicates required field</small>
@@ -66,12 +67,14 @@
 <script>
 import { PostComment } from "../../api/Comment-api";
 import { GetTopic } from "../../api/Topic-api";
+import { mapGetters } from "vuex";
 export default {
   name: "AddComments",
 
   data: () => ({
     dialog: false,
     description: "",
+    comment: "",
     topic: [{}],
   }),
 
@@ -79,9 +82,16 @@ export default {
     this.getTopics();
   },
 
+  computed: {
+    ...mapGetters(["user_id"]),
+  },
+
   methods: {
     async postComments() {
-      const toSend = {};
+      const toSend = {
+        comment: this.comment,
+        user_id: this.user_id,
+      };
       await PostComment(toSend)
         .then((res) => {
           console.log(res, "Response from comment");

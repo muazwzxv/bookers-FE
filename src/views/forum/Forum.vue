@@ -1,39 +1,34 @@
 <template>
   <v-main>
-    <v-card class="mx-auto" max-width="800">
-      <v-list two-line>
-        <v-list-item-group active-class="pink--text" multiple>
+    <v-container>
+      <v-card max-width="1200">
+        <v-list two-line>
           <template v-for="(comment, index) in comments">
             <v-list-item :key="comment.id">
-              <template v-slot:default="{ active }">
+              <template>
                 <v-list-item-content>
                   <!-- <v-list-item-title
                     v-text="comment.topic.name"
                   ></v-list-item-title> -->
 
                   <v-list-item-subtitle
-                    class="text--primary"
+                    v-if="comment.topic"
+                    class="font-weight-bold text-left"
+                    v-text="comment.topic.name"
+                  ></v-list-item-subtitle>
+
+                  <v-list-item-subtitle
+                    v-if="comment.descriptions"
+                    class="text-left"
                     v-text="comment.descriptions"
                   ></v-list-item-subtitle>
 
                   <v-list-item-subtitle
-                    v-text="comment.descriptions"
+                    v-if="comment.user.name"
+                    class="text-right"
+                    v-text="comment.user.name"
                   ></v-list-item-subtitle>
                 </v-list-item-content>
-
-                <v-list-item-action>
-                  <v-list-item-action-text
-                    v-text="comment.id"
-                  ></v-list-item-action-text>
-
-                  <v-icon v-if="!active" color="grey lighten-1">
-                    mdi-star-outline
-                  </v-icon>
-
-                  <v-icon v-else color="yellow darken-3">
-                    mdi-star
-                  </v-icon>
-                </v-list-item-action>
               </template>
             </v-list-item>
 
@@ -42,9 +37,9 @@
               :key="index"
             ></v-divider>
           </template>
-        </v-list-item-group>
-      </v-list>
-    </v-card>
+        </v-list>
+      </v-card>
+    </v-container>
   </v-main>
 </template>
 <script>
@@ -60,19 +55,20 @@ export default {
     },
   }),
 
-  created() {
-    this.getComments();
+  async created() {
+    await this.getComments();
+    console.log(this.comments, "Final comment object");
   },
 
   methods: {
     async getComments() {
       await GetComments()
-        .then((res) => {
+        .then(async (res) => {
           this.comments = res.data.Comment;
-          this.getTopicReference();
-          this.getUserReference();
         })
         .catch((err) => console.log(err), "the error bitch");
+
+      await this.getTopicReference();
     },
 
     async getTopicReference() {
@@ -80,32 +76,26 @@ export default {
         await GetTopicById(this.comments[i].topic_id)
           .then((res) => {
             this.comments[i].topic = res.data.Topic;
+            this.comments.splice(i, 1, this.comments[i]);
           })
           .catch((err) => {
             console.log(err, "The error");
           });
       }
-      console.log(
-        this.comments,
-        "Comment object after adding the topic reference"
-      );
+      this.getUserReference();
     },
 
     async getUserReference() {
       for (let i = 0; i < this.comments.length; i++) {
         await getUserById(this.comments[i].user_id)
           .then((res) => {
-            console.log(res, "the response for user ");
             this.comments[i].user = res.data.user;
+            this.comments.splice(i, 1, this.comments[i]);
           })
           .catch((err) => {
             console.log(err, " the error from the user api endpoint");
           });
       }
-      console.log(
-        this.comments,
-        "Comment object after adding the user reference"
-      );
     },
   },
 };

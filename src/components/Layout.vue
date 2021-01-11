@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" align-left>
       <router-link to="/">Login</router-link> |
       <router-link to="/signup">Register</router-link>
     </div>

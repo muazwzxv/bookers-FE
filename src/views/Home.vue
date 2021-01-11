@@ -9,6 +9,8 @@
 
       <v-fab-transition>
         <AddListings v-if="$route.name === 'listings'" />
+        <AddComments v-if="$route.name === 'forum'" />
+
         <!-- Add comment button here -->
       </v-fab-transition>
     </v-app-bar>
@@ -51,9 +53,10 @@
 
 <script>
 import AddListings from "./listing/AddListing";
+import AddComments from "./forum/AddForum";
 import { mdiPencil } from "@mdi/js";
 export default {
-  components: { AddListings },
+  components: { AddListings, AddComments },
   //
   name: "App",
 

@@ -47,3 +47,10 @@ export function deleteById(id) {
 		method: 'delete'
 	})
 }
+
+export function getUserById(id) {
+	return request({
+		url: `/users/${id}`,
+		method: 'get'
+	})
+}

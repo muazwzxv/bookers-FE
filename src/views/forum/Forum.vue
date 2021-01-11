@@ -1,37 +1,56 @@
 <template>
   <v-main>
-    <v-container row align-left>
-      <v-card max-width="700" class="mx-auto">
-        <v-list three-line>
-          <template v-for="(item, index) in items">
-            <v-subheader
-              v-if="item.header"
-              :key="item.header"
-              v-text="item.header"
-            ></v-subheader>
+    <v-card class="mx-auto" max-width="800">
+      <v-list two-line>
+        <v-list-item-group active-class="pink--text" multiple>
+          <template v-for="(comment, index) in comments">
+            <v-list-item :key="comment.id">
+              <template v-slot:default="{ active }">
+                <v-list-item-content>
+                  <!-- <v-list-item-title
+                    v-text="comment.topic.name"
+                  ></v-list-item-title> -->
+
+                  <v-list-item-subtitle
+                    class="text--primary"
+                    v-text="comment.descriptions"
+                  ></v-list-item-subtitle>
+
+                  <v-list-item-subtitle
+                    v-text="comment.descriptions"
+                  ></v-list-item-subtitle>
+                </v-list-item-content>
+
+                <v-list-item-action>
+                  <v-list-item-action-text
+                    v-text="comment.id"
+                  ></v-list-item-action-text>
+
+                  <v-icon v-if="!active" color="grey lighten-1">
+                    mdi-star-outline
+                  </v-icon>
+
+                  <v-icon v-else color="yellow darken-3">
+                    mdi-star
+                  </v-icon>
+                </v-list-item-action>
+              </template>
+            </v-list-item>
 
             <v-divider
-              v-else-if="item.divider"
+              v-if="index < comment.length - 1"
               :key="index"
-              :inset="item.inset"
             ></v-divider>
-
-            <v-list-item v-else :key="item.title">
-              <v-list-item-content>
-                <v-list-item-title v-html="item.title"></v-list-item-title>
-                <v-list-item-subtitle
-                  v-html="item.subtitle"
-                ></v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
           </template>
-        </v-list>
-      </v-card>
-    </v-container>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
   </v-main>
 </template>
 <script>
 import { GetComments } from "../../api/Comment-api";
+import { GetTopicById } from "../../api/Topic-api";
+import { getUserById } from "../../api/user-api";
 export default {
   data: () => ({
     comments: [{}],
@@ -39,41 +58,6 @@ export default {
       divider: true,
       inset: true,
     },
-    items: [
-      { header: "Today" },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        title: "Brunch this weekend?",
-        subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
-      },
-      { divider: true, inset: true },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-        subtitle: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
-      },
-      { divider: true, inset: true },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        title: "Oui oui",
-        subtitle:
-          '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-      },
-      { divider: true, inset: true },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        title: "Birthday gift",
-        subtitle:
-          '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-      },
-      { divider: true, inset: true },
-      {
-        avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-        title: "Recipe to try",
-        subtitle:
-          '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-      },
-    ],
   }),
 
   created() {
@@ -85,8 +69,43 @@ export default {
       await GetComments()
         .then((res) => {
           this.comments = res.data.Comment;
+          this.getTopicReference();
+          this.getUserReference();
         })
         .catch((err) => console.log(err), "the error bitch");
+    },
+
+    async getTopicReference() {
+      for (let i = 0; i < this.comments.length; i++) {
+        await GetTopicById(this.comments[i].topic_id)
+          .then((res) => {
+            this.comments[i].topic = res.data.Topic;
+          })
+          .catch((err) => {
+            console.log(err, "The error");
+          });
+      }
+      console.log(
+        this.comments,
+        "Comment object after adding the topic reference"
+      );
+    },
+
+    async getUserReference() {
+      for (let i = 0; i < this.comments.length; i++) {
+        await getUserById(this.comments[i].user_id)
+          .then((res) => {
+            console.log(res, "the response for user ");
+            this.comments[i].user = res.data.user;
+          })
+          .catch((err) => {
+            console.log(err, " the error from the user api endpoint");
+          });
+      }
+      console.log(
+        this.comments,
+        "Comment object after adding the user reference"
+      );
     },
   },
 };

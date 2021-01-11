@@ -14,3 +14,10 @@ export function GetTopic() {
     method: 'get',
   })
 }
+
+export function GetTopicById(id) {
+  return request({
+    url: `/topic/${id}`,
+    method: 'get'
+  })
+}

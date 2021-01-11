@@ -7,27 +7,23 @@
             <v-list-item :key="comment.id">
               <template>
                 <v-list-item-content>
-                  <!-- <v-list-item-title
+                  <v-list-item-title
+                    v-if="comment.topic.name"
                     v-text="comment.topic.name"
-                  ></v-list-item-title> -->
-
-                  <v-list-item-subtitle
-                    v-if="comment.topic"
-                    class="font-weight-bold text-left"
-                    v-text="comment.topic.name"
-                  ></v-list-item-subtitle>
+                    class="text-left"
+                  ></v-list-item-title>
 
                   <v-list-item-subtitle
                     v-if="comment.descriptions"
                     class="text-left"
-                    v-text="comment.descriptions"
-                  ></v-list-item-subtitle>
+                    >{{ comment.descriptions }}</v-list-item-subtitle
+                  >
 
                   <v-list-item-subtitle
                     v-if="comment.user.name"
                     class="text-right"
-                    v-text="comment.user.name"
-                  ></v-list-item-subtitle>
+                    >{{ comment.user.name }}</v-list-item-subtitle
+                  >
                 </v-list-item-content>
               </template>
             </v-list-item>

@@ -35,6 +35,10 @@ import { GetComments } from "../../api/Comment-api";
 export default {
   data: () => ({
     comments: [{}],
+    divider: {
+      divider: true,
+      inset: true,
+    },
     items: [
       { header: "Today" },
       {
@@ -80,7 +84,7 @@ export default {
     async getComments() {
       await GetComments()
         .then((res) => {
-          this.comments = res.data;
+          this.comments = res.data.Comment;
         })
         .catch((err) => console.log(err), "the error bitch");
     },

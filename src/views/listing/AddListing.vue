@@ -86,6 +86,7 @@
 
 <script>
 import { postListings } from "../../api/Listings-api";
+import { eventBus } from "../../utils/even-bus";
 export default {
   name: "AddListing",
 
@@ -122,7 +123,13 @@ export default {
         });
 
       this.dialog = false;
-      location.reload();
+      this.description = "";
+      this.status = "";
+      this.delivery = "";
+      this.price = "";
+      this.contact = "";
+      this.title = "";
+      eventBus.$emit("reloadListings");
     },
   },
 };

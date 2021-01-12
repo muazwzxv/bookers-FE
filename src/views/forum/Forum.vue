@@ -42,6 +42,7 @@
 import { GetComments } from "../../api/Comment-api";
 import { GetTopicById } from "../../api/Topic-api";
 import { getUserById } from "../../api/user-api";
+import { eventBus } from "../../utils/even-bus";
 export default {
   data: () => ({
     comments: [{}],
@@ -52,6 +53,7 @@ export default {
   }),
 
   async created() {
+    eventBus.$on("reloadComments", this.getComments);
     await this.getComments();
     console.log(this.comments, "Final comment object");
   },

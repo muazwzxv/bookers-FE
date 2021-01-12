@@ -49,6 +49,7 @@
 
 <script>
 import { getAll } from "../../api/Listings-api";
+import { eventBus } from "../../utils/even-bus";
 export default {
   //
   name: "Listings",
@@ -61,6 +62,7 @@ export default {
   },
 
   created() {
+    eventBus.$on("reloadListings", this.getListitngs);
     this.getListitngs();
   },
 

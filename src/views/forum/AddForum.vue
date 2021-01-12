@@ -31,14 +31,16 @@
                 ></v-text-field>
               </v-col>
 
-              <!-- <v-col cols="12" sm="6" v-for="topic in topics" :key="topic.id">
+              <v-col cols="12">
                 <v-select
-                  v-model="selected"
-                  :value="topic.name"
-                  label="Delivery type"
+                  :items="topic"
+                  v-model="selectedTopicId"
+                  item-value="id"
+                  item-text="name"
+                  label="Topic"
                   required
                 ></v-select>
-              </v-col> -->
+              </v-col>
 
               <!-- <v-col cols="12" sm="6">
                 <v-select
@@ -68,13 +70,14 @@
 import { PostComment } from "../../api/Comment-api";
 import { GetTopic } from "../../api/Topic-api";
 import { mapGetters } from "vuex";
+import { eventBus } from "../../utils/even-bus";
 export default {
   name: "AddComments",
 
   data: () => ({
     dialog: false,
-    description: "",
     comment: "",
+    selectedTopicId: "",
     topic: [{}],
   }),
 
@@ -86,12 +89,20 @@ export default {
     ...mapGetters(["user_id"]),
   },
 
+  watch: {
+    selected: function(newvalue) {
+      console.log(newvalue, "the new value");
+    },
+  },
+
   methods: {
     async postComments() {
       const toSend = {
-        comment: this.comment,
+        descriptions: this.comment,
         user_id: this.user_id,
+        topic_id: this.selectedTopicId,
       };
+
       await PostComment(toSend)
         .then((res) => {
           console.log(res, "Response from comment");
@@ -100,14 +111,15 @@ export default {
           console.log(err, "The error is here");
         });
       this.dialog = false;
-      location.reload();
+      this.comment = "";
+      eventBus.$emit("reloadComments");
     },
 
     async getTopics() {
       await GetTopic()
         .then((res) => {
-          console.log(res, "Res APi call to get Topics");
           this.topic = res.data.Topic;
+          console.log(this.topic, "afther shits done");
         })
         .catch((err) => {
           console.log(err, "Err Api call to get Topics ");

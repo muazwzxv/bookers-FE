@@ -48,7 +48,7 @@
             <v-list-item-icon>
               <v-icon>mdi-account</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Forum</v-list-item-title>
+            <v-list-item-title @click="logout">Logout</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -84,7 +84,8 @@ export default {
 
   methods: {
     logout() {
-      console.log("log out la fucker");
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
     },
   },
 };

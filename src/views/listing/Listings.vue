@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col v-for="listing in this.listings" :key="listing.id" cols="4">
-          <v-card height="200" width="600" shaped>
+          <v-card height="200" width="600" shaped color="blue-grey darken-2">
             <v-card-title>{{ listing.title }}</v-card-title>
 
             <v-card-text>
@@ -28,10 +28,14 @@
                 v-if="reveal"
                 class="transition-fast-in-fast-out v-card--reveal"
                 style="height: 100%"
+                color="blue-grey darken-2"
+                shaped
               >
                 <v-card-title>Description</v-card-title>
                 <v-card-text class="pb-0">
-                  <p>{{ listing.description }}</p>
+                  <p>
+                    <b>{{ listing.description }}</b>
+                  </p>
                 </v-card-text>
                 <v-card-actions class="pt-0">
                   <v-btn text color="teal accent-4" @click="reveal = false"

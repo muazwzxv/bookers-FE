@@ -2,8 +2,8 @@
   <v-main>
     <v-container>
       <v-row>
-        <v-col v-for="listing in this.listings" :key="listing.id" cols="4">
-          <v-card height="200" width="600" shaped>
+        <v-col v-for="listing in listings" :key="listing.id" cols="4">
+          <v-card height="200" width="600" shaped color="blue-grey darken-2">
             <v-card-title>{{ listing.title }}</v-card-title>
 
             <v-card-text>
@@ -28,6 +28,8 @@
                 v-if="reveal"
                 class="transition-fast-in-fast-out v-card--reveal"
                 style="height: 100%"
+                color="blue-grey darken-2"
+                shaped
               >
                 <v-card-title>Description</v-card-title>
                 <v-card-text class="pb-0">

@@ -2,7 +2,7 @@
   <v-main>
     <v-container fluid>
       <v-layout column>
-        <v-card>
+        <v-card shaped color="grey lighten-1">
           <v-card-text>
             <v-flex class="mb-4"> </v-flex>
             <v-text-field v-model="form.Name" label="FirstName"></v-text-field>
@@ -14,13 +14,12 @@
           </v-card-text>
           <v-card-actions>
             <v-btn color="primary" :loading="loading" @click="updateUser">
-              <v-icon left dark>check</v-icon>
+              <v-icon left dark></v-icon>
               Save Changes
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-layout>
-
       <UserListings />
     </v-container>
   </v-main>
@@ -47,7 +46,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getInfo");
-    this.fetchState()
+    this.fetchState();
   },
   methods: {
     fetchState() {

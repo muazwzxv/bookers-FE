@@ -1,24 +1,28 @@
-# bookers-fe
+## bookers-fe
 
-## Project setup
-```
-yarn install
-```
+## How to run
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+- Ensure you have [node js](https://nodejs.org/en/) installed
+- Clone this repository in your desktop directory
 
-### Compiles and minifies for production
-```
-yarn build
+```console
+$ git clone https://github.com/muazwzxv/bookers-FE.git
 ```
 
-### Lints and fixes files
-```
-yarn lint
+- Change directory into the source code
+
+```console
+$ cd bookers-FE
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Install all dependency needed
+
+```console
+$ npm install
+```
+
+- run the project
+
+```console
+$ npm run serve
+```

@@ -1,6 +1,12 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app shrink-on-scroll color="blue">
+    <v-app-bar
+      app
+      shrink-on-scroll
+      color="blue"
+      dark
+      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+    >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
@@ -85,7 +91,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("/login");
+      this.$router.push({ name: "login" });
     },
   },
 };

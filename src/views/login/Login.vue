@@ -1,7 +1,7 @@
 <template id="nav">
   <v-container>
-    <v-layout row align-center>
-      <v-flex xx12 sm6 offset-sm3>
+    <v-layout class="d-flex pa-2">
+      <v-flex xx12 sm6 offset-sm8>
         <v-card>
           <v-card-text>
             <form @submit.prevent>

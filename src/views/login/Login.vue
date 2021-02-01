@@ -62,7 +62,7 @@ export default {
   computed: {},
 
   methods: {
-    async onLogin() {
+    async onLogin() { //test
       const form = {
         email: this.email,
         password: this.password,

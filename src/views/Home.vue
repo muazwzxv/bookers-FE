@@ -11,14 +11,18 @@
 
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
 
-      <v-spacer></v-spacer>
-
       <v-fab-transition>
         <AddListings v-if="$route.name === 'listings'" />
         <AddComments v-if="$route.name === 'forum'" />
-
+        <v-spacer></v-spacer>
         <!-- Add comment button here -->
       </v-fab-transition>
+
+      <v-spacer></v-spacer>
+      <br />
+      <v-btn icon>
+        <AddTopics v-if="$route.name === 'forum'" />
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
@@ -67,9 +71,10 @@
 <script>
 import AddListings from "./listing/AddListing";
 import AddComments from "./forum/AddForum";
+import AddTopics from "./forum/AddTopics";
 import { mdiPencil } from "@mdi/js";
 export default {
-  components: { AddListings, AddComments },
+  components: { AddListings, AddComments, AddTopics },
   //
   name: "App",
 

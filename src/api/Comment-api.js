@@ -29,3 +29,10 @@ export function DeleteComments(id) {
     method: 'delete'
   })
 }
+
+export function GetCommentAndRelations() {
+  return request({
+    url : `/comments/ref`,
+    method: 'get'
+  })
+}

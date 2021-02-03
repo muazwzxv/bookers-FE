@@ -8,8 +8,8 @@
               <template>
                 <v-list-item-content>
                   <v-list-item-title
-                    v-if="comment.topic.name"
-                    v-text="comment.topic.name"
+                    v-if="comment.topicName"
+                    v-text="comment.topicName"
                     class="text-left"
                   ></v-list-item-title>
 
@@ -20,9 +20,9 @@
                   >
 
                   <v-list-item-subtitle
-                    v-if="comment.user.name"
+                    v-if="comment.publisherName"
                     class="text-right"
-                    >{{ comment.user.name }}</v-list-item-subtitle
+                    >{{ comment.publisherName }}</v-list-item-subtitle
                   >
                 </v-list-item-content>
               </template>
@@ -39,9 +39,8 @@
   </v-main>
 </template>
 <script>
-import { GetComments } from "../../api/Comment-api";
-import { GetTopicById } from "../../api/Topic-api";
-import { getUserById } from "../../api/user-api";
+import { GetCommentAndRelations } from "../../api/Comment-api";
+
 import { eventBus } from "../../utils/even-bus";
 export default {
   data: () => ({
@@ -54,46 +53,19 @@ export default {
 
   async created() {
     eventBus.$on("reloadComments", this.getComments);
-    await this.getComments();
-    console.log(this.comments, "Final comment object");
+    this.getCommentsAndRelations();
   },
 
   methods: {
-    async getComments() {
-      await GetComments()
-        .then(async (res) => {
+    async getCommentsAndRelations() {
+      await GetCommentAndRelations()
+        .then((res) => {
+          console.log(res.data, "the api for the join endpoint");
           this.comments = res.data.Comment;
         })
-        .catch((err) => console.log(err), "the error bitch");
-
-      await this.getTopicReference();
-    },
-
-    async getTopicReference() {
-      for (let i = 0; i < this.comments.length; i++) {
-        await GetTopicById(this.comments[i].topic_id)
-          .then((res) => {
-            this.comments[i].topic = res.data.Topic;
-            this.comments.splice(i, 1, this.comments[i]);
-          })
-          .catch((err) => {
-            console.log(err, "The error");
-          });
-      }
-      this.getUserReference();
-    },
-
-    async getUserReference() {
-      for (let i = 0; i < this.comments.length; i++) {
-        await getUserById(this.comments[i].user_id)
-          .then((res) => {
-            this.comments[i].user = res.data.user;
-            this.comments.splice(i, 1, this.comments[i]);
-          })
-          .catch((err) => {
-            console.log(err, " the error from the user api endpoint");
-          });
-      }
+        .catch((err) => {
+          console.log(err, "the error for the join endpoint");
+        });
     },
   },
 };

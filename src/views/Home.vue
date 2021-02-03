@@ -9,20 +9,18 @@
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
-
-      <v-fab-transition>
-        <AddListings v-if="$route.name === 'listings'" />
-        <AddComments v-if="$route.name === 'forum'" />
-        <v-spacer></v-spacer>
-        <!-- Add comment button here -->
-      </v-fab-transition>
+      <v-toolbar-title class="d-inline-flex" style="width: 100%;">
+        <div class="text-capitalize">
+          {{ $route.name }}
+        </div>
+        <div class="d-inline-flex justify-end" style="width: 100%;">
+          <AddListings class="ml-6" v-if="$route.name === 'listings'" />
+          <AddComments class="ml-6" v-if="$route.name === 'forum'" />
+          <AddTopics class="ml-6" v-if="$route.name === 'forum'" />
+        </div>
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <br />
-      <v-btn icon>
-        <AddTopics v-if="$route.name === 'forum'" />
-      </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>

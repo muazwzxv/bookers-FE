@@ -1,21 +1,19 @@
 <template>
-  <v-row justify="center">
+  <div>
+    <v-btn
+      color="primary"
+      dark
+      small
+      absolute
+      bottom
+      right
+      v-bind="attrs"
+      @click="dialog = true"
+    >
+      <v-icon>mdi-plus</v-icon>
+      Add Listings
+    </v-btn>
     <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          small
-          absolute
-          bottom
-          right
-          v-bind="attrs"
-          v-on="on"
-        >
-          <v-icon>mdi-plus</v-icon>
-          Add Listings
-        </v-btn>
-      </template>
       <v-card>
         <v-card-title>
           <span class="headline">New Listings</span>
@@ -77,11 +75,13 @@
           <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
-          <v-btn color="blue darken-1" text @click="postListing"> Post </v-btn>
+          <v-btn color="blue darken-1" text @click="postListing">
+            Post
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-row>
+  </div>
 </template>
 
 <script>

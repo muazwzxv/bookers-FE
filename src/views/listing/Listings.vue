@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col v-for="listing in this.listings" :key="listing.id" cols="4">
-          <v-card height="200" width="600" shaped color="blue-grey darken-2">
+          <v-card height="200" width="600" shaped color="teal lighten-4">
             <v-card-title>{{ listing.title }}</v-card-title>
 
             <v-card-text>

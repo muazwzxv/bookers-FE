@@ -58,6 +58,7 @@
 <script>
 import { PostTopic } from "../../api/Topic-api";
 import { getCategory } from "../../api/Category-api";
+import { eventBus } from "../../utils/even-bus";
 export default {
   name: "AddTopics",
 
@@ -86,6 +87,8 @@ export default {
         .catch((err) => {
           console.log(err, "err after posting topcis");
         });
+      this.dialog = false;
+      eventBus.$emit("reloadComments");
     },
 
     async getCategory() {
